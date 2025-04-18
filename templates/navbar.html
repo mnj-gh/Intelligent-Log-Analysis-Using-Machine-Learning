@@ -1,0 +1,59 @@
+<!-- templates/navbar.html -->
+<style>
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1c1c1c;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ff7f50;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+</style>
+
+<nav class="navbar">
+  <img src="/static/log.png" class="logo" alt="IDS Logo">
+  <div class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('input_form') }}">Predict</a>
+  </div>
+</nav>

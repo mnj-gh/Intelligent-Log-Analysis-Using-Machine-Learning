@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anomaly Detection</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/darts.css">
+    <link rel="stylesheet" type="text/css" href="/static/ind.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    
+    <!-- Hero Section with Precautions -->
+    <section class="hero">
+        <div class="heading">
+            <h1>What's Next?</h1>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h2>Precautions</h2>
+                <ul class="custom-bullet">
+                    <li>Isolate the affected system or network segment.</li>
+                    <li>Notify relevant stakeholders</li>
+                    <li>Deploy temporary controls or measures to contain the attack and limit its impact until a more comprehensive response plan can be implemented.</li>
+                    <li>Continuously monitor network and system logs for any further signs of malicious activity.</li>
+                    <li>Perform a detailed investigation to understand the root cause of the attack, how it occurred, and what vulnerabilities were exploited.</li>
+                    <li>Evaluate the effectiveness of your incident response procedures and identify any areas for improvement.</li>
+                </ul>
+            </div>
+            <div class="hero-image">
+                <img src="/static/Precaution.png" alt="Precaution Image">
+            </div>
+        </div>
+    </section>
+
+    <h1>Network Traffic Anomaly Detection</h1>
+    
+    <!-- Form for Network Traffic Data -->
+    <form method="POST">
+        <label>Bwd_Pkt_Len_Std:</label>
+        <input type="text" name="Bwd_Pkt_Len_Std" required><br>
+
+        <label>PSH_Flag_Cnt:</label>
+        <input type="text" name="PSH_Flag_Cnt" required><br>
+
+        <label>Fwd_Seg_Size_Min:</label>
+        <input type="text" name="Fwd_Seg_Size_Min" required><br>
+
+        <label>Bwd_Pkt_Len_Min:</label>
+        <input type="text" name="Bwd_Pkt_Len_Min" required><br>
+
+        <label>ACK_Flag_Cnt:</label>
+        <input type="text" name="ACK_Flag_Cnt" required><br>
+
+        <label>Fwd_IAT_Std:</label>
+        <input type="text" name="Fwd_IAT_Std" required><br>
+
+        <label>Init_Fwd_Win_Byts:</label>
+        <input type="text" name="Init_Fwd_Win_Byts" required><br>
+
+        <label>Flow_IAT_Max:</label>
+        <input type="text" name="Flow_IAT_Max" required><br>
+
+        <label>Bwd_Pkts/s:</label>
+        <input type="text" name="Bwd_Pkts/s" required><br>
+
+        <label>Bwd_IAT_Tot:</label>
+        <input type="text" name="Bwd_IAT_Tot" required><br>
+
+        <label>URG_Flag_Cnt:</label>
+        <input type="text" name="URG_Flag_Cnt" required><br>
+
+        <label>Pkt_Len_Min:</label>
+        <input type="text" name="Pkt_Len_Min" required><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    <!-- Prediction Results Overlay -->
+    {% if prediction %}
+        <p style="font-weight: bold; color: white; font-size: 20px; text-align: center;">{{ prediction }}</p>
+        {% if prediction == "ANOMALY DETECTED!!!" %}
+            <div class="warning-overlay" id="alertBox">
+                <div class="warning-content">
+                    <button class="close-btn" onclick="closeAlert()">×</button>
+                    <div class="blinking-icon">🚨</div>
+                    <strong>{{ prediction }}</strong>
+                </div>
+            </div>
+        {% else %}
+            <div class="safe-overlay" id="safeBox">
+                <div class="safe-content">
+                    <button class="close-btn" onclick="closeSafe()">×</button>
+                    <div class="calm-icon">🟢</div>
+                    <strong>{{ prediction }}</strong>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <script>
+        function closeAlert() {
+            const alertBox = document.getElementById("alertBox");
+            if (alertBox) alertBox.style.display = "none";
+        }
+
+        function closeSafe() {
+            const safeBox = document.getElementById('safeBox');
+            if (safeBox) safeBox.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
